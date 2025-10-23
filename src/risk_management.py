@@ -9,7 +9,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 def calculate_position_size(account_size, risk_per_share, max_risk_pct=0.03):
-    """"""
+    """
     Calculate position size based on account risk
 
     Formula: Position Size = (Account Ã— Risk%) / Risk per Share
@@ -21,7 +21,7 @@ def calculate_position_size(account_size, risk_per_share, max_risk_pct=0.03):
 
     Returns:
         int: Number of shares to trade
-    """"""
+    """
     try:
         if risk_per_share <= 0:
             logger.warning(""Invalid risk_per_share, returning 0"")
@@ -40,7 +40,7 @@ def calculate_position_size(account_size, risk_per_share, max_risk_pct=0.03):
         return 0
 
 def validate_risk_limits(positions, config):
-    """"""
+    """
     Validate that total portfolio risk doesn't exceed limits
 
     Args:
@@ -49,7 +49,7 @@ def validate_risk_limits(positions, config):
 
     Returns:
         tuple: (bool: valid, float: total_risk_pct)
-    """"""
+    """
     try:
         total_risk = sum(pos.get('total_risk', 0) for pos in positions)
         account_size = config['trading']['default_account_size']
@@ -66,7 +66,7 @@ def validate_risk_limits(positions, config):
         return False, 0.0
 
 def calculate_reward_risk_ratio(entry, stop, target):
-    """"""
+    """
     Calculate reward-to-risk ratio
 
     Args:
@@ -76,7 +76,7 @@ def calculate_reward_risk_ratio(entry, stop, target):
 
     Returns:
         float: Reward/Risk ratio
-    """"""
+    """
     try:
         risk = abs(entry - stop)
         reward = abs(target - entry)
