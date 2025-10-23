@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-""""""
+"""
 Risk Management and Position Sizing
 Based on Robert Miner's methodology
-""""""
+"""
 
 import logging
 
