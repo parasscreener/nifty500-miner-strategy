@@ -1,4 +1,4 @@
-"#!/usr/bin/env python3
+#!/usr/bin/env python3
 """"""
 Miner High Probability Trading Strategy Scanner
 Scans Nifty 500 stocks for trading setups based on Robert C. Miner's methodology
@@ -343,4 +343,3 @@ if __name__ == ""__main__"":
     except Exception as e:
         logger.error(f""Fatal error: {e}"", exc_info=True)
         sys.exit(1)
-"
