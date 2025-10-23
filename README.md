@@ -1,4 +1,4 @@
-"# Robert Miner High Probability Trading Strategy - Nifty 500
+# Robert Miner High Probability Trading Strategy - Nifty 500
 
 ## ðŸŽ¯ Overview
 
@@ -237,5 +237,3 @@ For issues:
 â­ Star this repo if you find it useful!
 
 Last Updated: October 2025
-"
-<img width="368" height="25" alt="image" src="https://github.com/user-attachments/assets/cb5343dc-3387-4594-9d2b-e771cee1b49a" />
