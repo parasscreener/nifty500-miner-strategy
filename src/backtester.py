@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 logger = logging.getLogger(__name__)
 
 def run_backtest(symbol, data, direction, config, lookback_years=10):
-    """"""
+    """
     Run simplified backtest on historical data
 
     Args:
@@ -24,7 +24,7 @@ def run_backtest(symbol, data, direction, config, lookback_years=10):
 
     Returns:
         dict: Backtest performance metrics
-    """"""
+    """
     try:
         if data is None or data.empty or len(data) < 252:  # Min 1 year
             return None
@@ -69,12 +69,12 @@ def run_backtest(symbol, data, direction, config, lookback_years=10):
         return None
 
 def simulate_trades(data, direction, config):
-    """"""
+    """
     Simulate trades based on simple rules
 
     Returns:
         list: List of trade dicts with entry, exit, P&L
-    """"""
+    """
     trades = []
 
     try:
@@ -155,12 +155,12 @@ def simulate_trades(data, direction, config):
         return []
 
 def calculate_metrics(trades, config):
-    """"""
+    """
     Calculate performance metrics from trade list
 
     Returns:
         dict: Performance metrics
-    """"""
+    """
     try:
         if not trades:
             return {}
