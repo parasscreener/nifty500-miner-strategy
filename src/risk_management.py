@@ -1,4 +1,4 @@
-"#!/usr/bin/env python3
+#!/usr/bin/env python3
 """"""
 Risk Management and Position Sizing
 Based on Robert Miner's methodology
@@ -89,4 +89,3 @@ def calculate_reward_risk_ratio(entry, stop, target):
     except Exception as e:
         logger.error(f""Error calculating R:R ratio: {e}"")
         return 0.0
-"
