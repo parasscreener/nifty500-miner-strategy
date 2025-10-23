@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-""""""
+"""
 Fibonacci Price and Time Calculations
 Based on Robert Miner's methodology
-""""""
+"""
 
 import pandas as pd
 import numpy as np
