@@ -23,7 +23,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(f'logs/scanner_{datetime.now().strftime(""%y%m%d"")}.log'),
+        logging.FileHandler(f'logs/scanner_{datetime.now().strftime("%y%m%d")}.log'),
         logging.StreamHandler()
     ]
 )
@@ -43,23 +43,23 @@ with open(config_path, 'r') as f:
     config = yaml.safe_load(f)
 
 def load_stock_symbols():
-    """"""Load Nifty 500 symbols from CSV""""""
+    """Load Nifty 500 symbols from CSV"""
     try:
         symbols_file = Path('data/nifty500_symbols.csv')
         if symbols_file.exists():
             df = pd.read_csv(symbols_file)
             symbols = [s + '.NS' if not s.endswith('.NS') else s for s in df['Symbol'].tolist()]
-            logger.info(f""Loaded {len(symbols)} stock symbols from CSV"")
+            logger.info(f"Loaded {len(symbols)} stock symbols from CSV")
             return symbols
         else:
-            logger.warning(""Symbols file not found, using default list"")
+            logger.warning("Symbols file not found, using default list")
             return get_default_symbols()
     except Exception as e:
-        logger.error(f""Error loading symbols: {e}"")
+        logger.error(f"Error loading symbols: {e}")
         return get_default_symbols()
 
 def get_default_symbols():
-    """"""Get default Nifty 500 symbols (top 50 for demo)""""""
+    """Get default Nifty 500 symbols (top 50 for demo)"""
     return [
         'RELIANCE.NS', 'TCS.NS', 'HDFCBANK.NS', 'INFY.NS', 'ICICIBANK.NS',
         'HINDUNILVR.NS', 'ITC.NS', 'SBIN.NS', 'BHARTIARTL.NS', 'KOTAKBANK.NS',
@@ -74,44 +74,44 @@ def get_default_symbols():
     ]
 
 def fetch_stock_data(symbol, period='10y', interval='1d'):
-    """"""Fetch historical stock data with caching""""""
+    """Fetch historical stock data with caching"""
     try:
         cache_dir = Path('data/cache')
         cache_dir.mkdir(parents=True, exist_ok=True)
-        cache_file = cache_dir / f""{symbol}_{interval}_{period}.pkl""
+        cache_file = cache_dir / f"{symbol}_{interval}_{period}.pkl"
 
         # Check cache (refresh daily)
         if cache_file.exists():
             age_hours = (datetime.now().timestamp() - cache_file.stat().st_mtime) / 3600
             if age_hours < 24:
-                logger.debug(f""Loading {symbol} from cache ({age_hours:.1f}h old)"")
+                logger.debug(f"Loading {symbol} from cache ({age_hours:.1f}h old)")
                 return pd.read_pickle(cache_file)
 
-        logger.info(f""Downloading {symbol} {interval} data..."")
+        logger.info(f"Downloading {symbol} {interval} data...")
 
         # Download with retry logic
         max_retries = 3
         for attempt in range(max_retries):
             try:
                 data = yf.download(
-                    symbol, 
-                    period=period, 
-                    interval=interval, 
+                    symbol,
+                    period=period,
+                    interval=interval,
                     progress=False,
                     auto_adjust=True
                 )
 
                 if not data.empty and len(data) > 50:
                     data.to_pickle(cache_file)
-                    logger.debug(f""  Downloaded {len(data)} bars"")
+                    logger.debug(f"  Downloaded {len(data)} bars")
                     return data
                 else:
-                    logger.warning(f""  Insufficient data for {symbol}"")
+                    logger.warning(f"  Insufficient data for {symbol}")
                     return pd.DataFrame()
 
             except Exception as e:
                 if attempt < max_retries - 1:
-                    logger.warning(f""  Retry {attempt+1}/{max_retries} for {symbol}"")
+                    logger.warning(f"  Retry {attempt+1}/{max_retries} for {symbol}")
                     continue
                 else:
                     raise
@@ -119,20 +119,20 @@ def fetch_stock_data(symbol, period='10y', interval='1d'):
         return pd.DataFrame()
 
     except Exception as e:
-        logger.error(f""Error fetching {symbol}: {e}"")
+        logger.error(f"Error fetching {symbol}: {e}")
         return pd.DataFrame()
 
 def scan_stock(symbol, daily_data, intraday_data):
-    """"""
+    """
     Scan single stock for Miner strategy setup
     Returns: dict with setup details or None
-    """"""
+    """
     try:
         if daily_data.empty or intraday_data.empty:
             return None
 
         if len(daily_data) < 50 or len(intraday_data) < 50:
-            logger.debug(f""{symbol}: Insufficient data"")
+            logger.debug(f"{symbol}: Insufficient data")
             return None
 
         # Calculate indicators
@@ -150,11 +150,11 @@ def scan_stock(symbol, daily_data, intraday_data):
 
         # Check daily momentum direction
         daily_bullish = (
-            d_stoch > 50 and d_rsi > 50 and 
+            d_stoch > 50 and d_rsi > 50 and
             d_macd > d_macd_signal and d_stoch < 80
         )
         daily_bearish = (
-            d_stoch < 50 and d_rsi < 50 and 
+            d_stoch < 50 and d_rsi < 50 and
             d_macd < d_macd_signal and d_stoch > 20
         )
 
@@ -247,19 +247,19 @@ def scan_stock(symbol, daily_data, intraday_data):
         }
 
     except Exception as e:
-        logger.error(f""Error scanning {symbol}: {e}"")
+        logger.error(f"Error scanning {symbol}: {e}")
         return None
 
 def main():
-    """"""Main execution function""""""
-    logger.info(""="" * 80)
-    logger.info(""MINER STRATEGY SCANNER STARTED"")
-    logger.info(f""Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S IST')}"")
-    logger.info(""="" * 80)
+    """Main execution function"""
+    logger.info("=" * 80)
+    logger.info("MINER STRATEGY SCANNER STARTED")
+    logger.info(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S IST')}")
+    logger.info("=" * 80)
 
     # Load stock symbols
     symbols = load_stock_symbols()
-    logger.info(f""Total symbols to scan: {len(symbols)}"")
+    logger.info(f"Total symbols to scan: {len(symbols)}")
 
     bullish_setups = []
     bearish_setups = []
@@ -267,7 +267,7 @@ def main():
     errors = []
 
     for i, symbol in enumerate(symbols, 1):
-        logger.info(f""[{i}/{len(symbols)}] Scanning {symbol}..."")
+        logger.info(f"[{i}/{len(symbols)}] Scanning {symbol}...")
 
         try:
             # Fetch data
@@ -280,18 +280,18 @@ def main():
             if result:
                 if result['direction'] == 'LONG':
                     bullish_setups.append(result)
-                    logger.info(f""  âœ“ BULLISH SETUP: Entry {result['entry']}, Stop {result['stop']}"")
+                    logger.info(f"  ✓ BULLISH SETUP: Entry {result['entry']}, Stop {result['stop']}")
                 else:
                     bearish_setups.append(result)
-                    logger.info(f""  âœ“ BEARISH SETUP: Entry {result['entry']}, Stop {result['stop']}"")
+                    logger.info(f"  ✓ BEARISH SETUP: Entry {result['entry']}, Stop {result['stop']}")
 
         except Exception as e:
             errors.append({'symbol': symbol, 'error': str(e)})
-            logger.error(f""  âœ— Error: {e}"")
+            logger.error(f"  ✖ Error: {e}")
 
     # Sort by backtest performance
     bullish_setups.sort(
-        key=lambda x: x['backtest'].get('sharpe_ratio', 0) if x['backtest'] else 0, 
+        key=lambda x: x['backtest'].get('sharpe_ratio', 0) if x['backtest'] else 0,
         reverse=True
     )
     bearish_setups.sort(
@@ -318,28 +318,28 @@ def main():
     # Save results
     results_dir = Path('results/daily_scans')
     results_dir.mkdir(parents=True, exist_ok=True)
-    results_file = results_dir / f""scan_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pkl""
+    results_file = results_dir / f"scan_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pkl"
     pd.to_pickle(results, results_file)
 
-    logger.info(""="" * 80)
-    logger.info(f""SCAN COMPLETE"")
-    logger.info(f""Bullish Setups: {len(bullish_setups)}"")
-    logger.info(f""Bearish Setups: {len(bearish_setups)}"")
-    logger.info(f""Errors: {len(errors)}"")
-    logger.info(""="" * 80)
+    logger.info("=" * 80)
+    logger.info("SCAN COMPLETE")
+    logger.info(f"Bullish Setups: {len(bullish_setups)}")
+    logger.info(f"Bearish Setups: {len(bearish_setups)}")
+    logger.info(f"Errors: {len(errors)}")
+    logger.info("=" * 80)
 
     # Send email report
     try:
         send_email_report(results, config)
-        logger.info(""Email report sent successfully"")
+        logger.info("Email report sent successfully")
     except Exception as e:
-        logger.error(f""Failed to send email: {e}"")
+        logger.error(f"Failed to send email: {e}")
 
     return results
 
-if __name__ == ""__main__"":
+if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        logger.error(f""Fatal error: {e}"", exc_info=True)
+        logger.error(f"Fatal error: {e}", exc_info=True)
         sys.exit(1)
