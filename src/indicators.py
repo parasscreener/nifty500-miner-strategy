@@ -1,4 +1,4 @@
-"#!/usr/bin/env python3
+#!/usr/bin/env python3
 """"""
 Technical Indicator Calculations
 Implements Stochastic, RSI, and MACD as per Miner's specifications
@@ -120,4 +120,3 @@ def detect_crossunder(series1, series2, lookback=2):
     curr_below = series1.iloc[-1] < series2.iloc[-1]
 
     return prev_above and curr_below
-"
