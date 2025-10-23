@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-""""""
+"""
 Backtesting Engine for Miner Strategy
 Simplified backtesting to evaluate historical performance
-""""""
+"""
 
 import pandas as pd
 import numpy as np
