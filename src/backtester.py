@@ -65,7 +65,7 @@ def run_backtest(symbol, data, direction, config, lookback_years=10):
         return metrics
 
     except Exception as e:
-        logger.error(f""Error in backtest for {symbol}: {e}"")
+        logger.error(f"Error in backtest for {symbol}: {e}")
         return None
 
 def simulate_trades(data, direction, config):
@@ -151,7 +151,7 @@ def simulate_trades(data, direction, config):
         return trades
 
     except Exception as e:
-        logger.error(f""Error simulating trades: {e}"")
+        logger.error(f"Error simulating trades: {e}")
         return []
 
 def calculate_metrics(trades, config):
@@ -206,5 +206,5 @@ def calculate_metrics(trades, config):
         }
 
     except Exception as e:
-        logger.error(f""Error calculating metrics: {e}"")
+        logger.error(f"Error calculating metrics: {e}")
         return {}
