@@ -1,4 +1,4 @@
-"#!/usr/bin/env python3
+#!/usr/bin/env python3
 """"""
 Email Report Generator and Sender
 Sends formatted HTML email with trading signals
@@ -216,4 +216,3 @@ def generate_setup_card(setup, direction, rank):
 """"""
 
     return html
-"
