@@ -1,4 +1,4 @@
-"# Miner Strategy Configuration
+# Miner Strategy Configuration
 
 # Email Settings
 email:
@@ -56,4 +56,3 @@ reporting:
   max_setups_per_direction: 10
   include_watchlist: true
   watchlist_threshold: 0.8  # 80% of criteria met
-"
