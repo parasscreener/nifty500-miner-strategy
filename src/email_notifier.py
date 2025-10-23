@@ -14,13 +14,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 def send_email_report(results, config):
-    """"""
+    """
     Generate and send email report with trading signals
 
     Args:
         results: Scan results dict
         config: Configuration dict
-    """"""
+    """
     try:
         # Get email credentials from environment
         sender_email = os.environ.get('EMAIL_USER')
@@ -58,12 +58,12 @@ def send_email_report(results, config):
         return False
 
 def generate_html_report(results, config):
-    """"""
+    """
     Generate HTML formatted email report
 
     Returns:
         str: HTML content
-    """"""
+    """
 
     bullish = results.get('bullish_setups', [])
     bearish = results.get('bearish_setups', [])
@@ -123,33 +123,32 @@ def generate_html_report(results, config):
             </div>
         </div>
     </div>
-""""""
-
+""""
     # Bullish Setups Section
     if bullish:
         html += """"""
     <div class=""section"">
         <h2 class=""section-title"">ðŸ“ˆ Top Bullish Opportunities</h2>
-""""""
+"""
         for i, setup in enumerate(bullish[:5], 1):
             html += generate_setup_card(setup, 'LONG', i)
 
         html += """"""
     </div>
-""""""
+"""
 
     # Bearish Setups Section
     if bearish:
         html += """"""
     <div class=""section"">
         <h2 class=""section-title"">ðŸ“‰ Top Bearish Opportunities</h2>
-""""""
-        for i, setup in enumerate(bearish[:5], 1):
+""""
+    for i, setup in enumerate(bearish[:5], 1):
             html += generate_setup_card(setup, 'SHORT', i)
 
         html += """"""
     </div>
-""""""
+"""
 
     # Disclaimer
     html += """"""
@@ -213,6 +212,6 @@ def generate_setup_card(setup, direction, rank):
         <p><strong>10Y Backtest:</strong> {bt_summary}</p>
         <p><strong>Risk:</strong> â‚¹{setup['total_risk']} ({(setup['total_risk']/1000000*100):.2f}% of â‚¹10L account)</p>
     </div>
-""""""
+"""
 
     return html
