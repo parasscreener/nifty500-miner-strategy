@@ -24,7 +24,7 @@ def calculate_position_size(account_size, risk_per_share, max_risk_pct=0.03):
     """
     try:
         if risk_per_share <= 0:
-            logger.warning(""Invalid risk_per_share, returning 0"")
+            logger.warning("Invalid risk_per_share, returning 0")
             return 0
 
         max_risk_amount = account_size * max_risk_pct
@@ -36,7 +36,7 @@ def calculate_position_size(account_size, risk_per_share, max_risk_pct=0.03):
         return position_size
 
     except Exception as e:
-        logger.error(f""Error calculating position size: {e}"")
+        logger.error(f"Error calculating position size: {e}")
         return 0
 
 def validate_risk_limits(positions, config):
@@ -62,7 +62,7 @@ def validate_risk_limits(positions, config):
         return is_valid, total_risk_pct
 
     except Exception as e:
-        logger.error(f""Error validating risk limits: {e}"")
+        logger.error(f"Error validating risk limits: {e}")
         return False, 0.0
 
 def calculate_reward_risk_ratio(entry, stop, target):
@@ -87,5 +87,5 @@ def calculate_reward_risk_ratio(entry, stop, target):
         return round(reward / risk, 2)
 
     except Exception as e:
-        logger.error(f""Error calculating R:R ratio: {e}"")
+        logger.error(f"Error calculating R:R ratio: {e}")
         return 0.0
