@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-""""""
+"""
 Email Report Generator and Sender
 Sends formatted HTML email with trading signals
-""""""
+"""
 
 import os
 import smtplib
