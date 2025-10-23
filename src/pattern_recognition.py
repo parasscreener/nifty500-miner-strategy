@@ -1,4 +1,4 @@
-"#!/usr/bin/env python3
+#!/usr/bin/env python3
 """"""
 Pattern Recognition Module
 Simplified Elliott Wave pattern analysis as per Miner's methodology
@@ -191,4 +191,3 @@ def determine_phase(swings, pattern):
 
     else:
         return 'DEVELOPING'
-"
