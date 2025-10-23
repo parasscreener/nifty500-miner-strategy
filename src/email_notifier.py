@@ -28,7 +28,7 @@ def send_email_report(results, config):
         recipient_email = os.environ.get('RECIPIENT_EMAIL', 'paras.m.parmar@gmail.com')
 
         if not sender_email or not sender_password:
-            logger.error(""Email credentials not found in environment variables"")
+            logger.error("Email credentials not found in environment variables")
             return False
 
         # Generate HTML content
@@ -36,8 +36,8 @@ def send_email_report(results, config):
 
         # Create message
         msg = MIMEMultipart('alternative')
-        msg['Subject'] = f""Miner Strategy Report - {results['scan_date'].strftime('%B %d, %Y')}""
-        msg['From'] = f""{config['email']['sender_name']} <{sender_email}>""
+        msg['Subject'] = f"Miner Strategy Report - {results['scan_date'].strftime('%B %d, %Y')}"
+        msg['From'] = f"{config['email']['sender_name']} <{sender_email}>"
         msg['To'] = recipient_email
 
         # Attach HTML content
@@ -50,11 +50,11 @@ def send_email_report(results, config):
             server.login(sender_email, sender_password)
             server.send_message(msg)
 
-        logger.info(f""Email sent successfully to {recipient_email}"")
+        logger.info(f"Email sent successfully to {recipient_email}")
         return True
 
     except Exception as e:
-        logger.error(f""Failed to send email: {e}"")
+        logger.error(f"Failed to send email: {e}")
         return False
 
 def generate_html_report(results, config):
