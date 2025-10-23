@@ -1,4 +1,4 @@
-"#!/usr/bin/env python3
+#!/usr/bin/env python3
 """"""
 Fibonacci Price and Time Calculations
 Based on Robert Miner's methodology
@@ -146,4 +146,3 @@ def calculate_time_projections(data, swing_points):
     except Exception as e:
         logger.error(f""Error calculating time projections: {e}"")
         return {}
-"
