@@ -52,7 +52,7 @@ def calculate_fib_levels(high, low, config):
         return levels
 
     except Exception as e:
-        logger.error(f""Error calculating Fibonacci levels: {e}"")
+        logger.error(f"Error calculating Fibonacci levels: {e}")
         return {}
 
 def find_confluence_zones(fib_levels, tolerance=0.02):
@@ -107,7 +107,7 @@ def find_confluence_zones(fib_levels, tolerance=0.02):
         return unique_zones
 
     except Exception as e:
-        logger.error(f""Error finding confluence zones: {e}"")
+        logger.error(f"Error finding confluence zones: {e}")
         return []
 
 def calculate_time_projections(data, swing_points):
@@ -144,5 +144,5 @@ def calculate_time_projections(data, swing_points):
         return projections
 
     except Exception as e:
-        logger.error(f""Error calculating time projections: {e}"")
+        logger.error(f"Error calculating time projections: {e}")
         return {}
