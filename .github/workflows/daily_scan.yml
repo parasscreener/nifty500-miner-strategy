@@ -1,4 +1,4 @@
-"name: Nifty 500 Miner Strategy Scanner
+name: Nifty 500 Miner Strategy Scanner
 
 on:
   schedule:
@@ -66,4 +66,3 @@ jobs:
           name: error-logs-${{ github.run_number }}
           path: logs/
           retention-days: 7
-"
