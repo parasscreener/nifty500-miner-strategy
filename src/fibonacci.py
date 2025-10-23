@@ -11,7 +11,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 def calculate_fib_levels(high, low, config):
-    """"""
+    """
     Calculate Fibonacci retracement and extension levels
 
     Args:
@@ -21,7 +21,7 @@ def calculate_fib_levels(high, low, config):
 
     Returns:
         dict: Fibonacci levels
-    """"""
+    """
     try:
         diff = high - low
 
@@ -56,7 +56,7 @@ def calculate_fib_levels(high, low, config):
         return {}
 
 def find_confluence_zones(fib_levels, tolerance=0.02):
-    """"""
+    """
     Find price zones where multiple Fibonacci levels converge
 
     Args:
@@ -65,7 +65,7 @@ def find_confluence_zones(fib_levels, tolerance=0.02):
 
     Returns:
         list: Confluence zones with price and count
-    """"""
+    """
     try:
         all_levels = []
 
@@ -111,7 +111,7 @@ def find_confluence_zones(fib_levels, tolerance=0.02):
         return []
 
 def calculate_time_projections(data, swing_points):
-    """"""
+    """
     Calculate time-based Fibonacci projections
 
     Args:
@@ -120,7 +120,7 @@ def calculate_time_projections(data, swing_points):
 
     Returns:
         dict: Time projection dates
-    """"""
+    """
     try:
         if len(swing_points) < 2:
             return {}
