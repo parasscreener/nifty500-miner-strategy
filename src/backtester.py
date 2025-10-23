@@ -1,4 +1,4 @@
-"#!/usr/bin/env python3
+#!/usr/bin/env python3
 """"""
 Backtesting Engine for Miner Strategy
 Simplified backtesting to evaluate historical performance
@@ -208,4 +208,3 @@ def calculate_metrics(trades, config):
     except Exception as e:
         logger.error(f""Error calculating metrics: {e}"")
         return {}
-"
